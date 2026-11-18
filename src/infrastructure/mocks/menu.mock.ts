@@ -40,7 +40,6 @@ export const SIGNATURE_BURGER_LAYERS_MOCK: BurgerLayer[] = [
   { id: "bun-top", name: "Pão brioche", detail: "Selado na manteiga" },
   { id: "salad", name: "Alface americana", detail: "Crocante e gelada" },
   { id: "tomato", name: "Tomate", detail: "Fatiado na hora" },
-  { id: "cheese", name: "Cheddar inglês", detail: "Derretido no abafador" },
-  { id: "meat", name: "Blend 180g", detail: "Smash na chapa a 250°C" },
+  { id: "cheese-meat", name: "Blend 180g com cheddar", detail: "Smash na chapa a 250°C" },
   { id: "bun-bottom", name: "Pão base", detail: "Tostado para não encharcar" },
 ];

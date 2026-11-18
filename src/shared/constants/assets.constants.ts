@@ -28,12 +28,12 @@ export const ASSETS: AssetMap = {
   heroVideo: null,
   heroVideoPoster: null,
   chefPortrait: null,
+  // Canvas atual: 432×578 (ver BURGER_CANVAS em BurgerAssembly.tsx).
   layers: {
-    "bun-top": null, //    "/images/burger/01-bun-top.png"
-    salad: null, //        "/images/burger/02-salad.png"
-    tomato: null, //       "/images/burger/03-tomato.png"
-    cheese: null, //       "/images/burger/04-cheese.png"
-    meat: null, //         "/images/burger/05-meat.png"
-    "bun-bottom": null, // "/images/burger/06-bun-bottom.png"
+    "bun-top": "/images/01-bun-top.svg",
+    salad: "/images/02-salad.svg",
+    tomato: "/images/03-tomato.svg",
+    "cheese-meat": "/images/04-chesee-meat.svg",
+    "bun-bottom": "/images/05-bottom.svg",
   },
 };

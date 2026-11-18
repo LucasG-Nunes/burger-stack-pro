@@ -1,5 +1,5 @@
-/** Ids na ordem de montagem, de cima para baixo (espelham os PNGs 01–06). */
-export type BurgerLayerId = "bun-top" | "salad" | "tomato" | "cheese" | "meat" | "bun-bottom";
+/** Ids na ordem de montagem, de cima para baixo (espelham as artes 01–05). */
+export type BurgerLayerId = "bun-top" | "salad" | "tomato" | "cheese-meat" | "bun-bottom";
 
 /** Uma camada do burger-assinatura, usada na seção de montagem no scroll. */
 export interface BurgerLayer {

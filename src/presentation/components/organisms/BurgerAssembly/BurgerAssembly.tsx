@@ -17,64 +17,69 @@ import { cn } from "@/shared/helpers/cn";
 
 /* ─────────────────────────────── Configuração ─────────────────────────────── */
 
+/**
+ * Dimensões do canvas comum das artes (viewBox dos SVGs em /public/images).
+ * Se reexportar as camadas em outro tamanho, atualize aqui.
+ */
+const BURGER_CANVAS = { width: 432, height: 578 } as const;
+
+/** Caixa (em px do canvas) onde o ingrediente aparece dentro da arte. */
+interface CanvasBox {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 interface LayerConfig {
   /** Deslocamento inicial no eixo Y (px). Todas terminam em 0. */
   startY: number;
-  /**
-   * Placeholder enquanto o PNG não existe: posição/tamanho relativos ao canvas
-   * compartilhado, imitando onde o ingrediente estará no PNG final.
-   */
-  placeholder: { style: CSSProperties; className: string };
+  /** Posição do ingrediente no canvas — usada pelo placeholder quando não há arte. */
+  box: CanvasBox;
+  placeholderClassName: string;
 }
 
 const LAYER_CONFIG: Record<BurgerLayerId, LayerConfig> = {
   "bun-top": {
     startY: -400,
-    placeholder: {
-      style: { top: "14%", height: "25%", width: "72%" },
-      className:
-        "rounded-t-[999px] rounded-b-2xl bg-linear-to-b from-amber-400 via-amber-600 to-amber-800 shadow-[inset_0_-10px_20px_rgba(0,0,0,0.35)]",
-    },
+    box: { x: 111, y: 70, w: 211, h: 95 },
+    placeholderClassName:
+      "rounded-t-[999px] rounded-b-2xl bg-linear-to-b from-amber-400 via-amber-600 to-amber-800",
   },
   salad: {
     startY: -200,
-    placeholder: {
-      style: { top: "38%", height: "6%", width: "86%" },
-      className: "rounded-[50%] bg-linear-to-b from-lime-400 to-green-700",
-    },
+    box: { x: 92, y: 154, w: 245, h: 93 },
+    placeholderClassName: "rounded-[50%] bg-linear-to-b from-lime-400 to-green-700",
   },
   tomato: {
     startY: -100,
-    placeholder: {
-      style: { top: "43%", height: "6%", width: "78%" },
-      className: "rounded-full bg-linear-to-b from-red-500 to-red-800",
-    },
+    box: { x: 121, y: 236, w: 202, h: 64 },
+    placeholderClassName: "rounded-full bg-linear-to-b from-red-500 to-red-800",
   },
-  cheese: {
-    startY: 50,
-    placeholder: {
-      style: { top: "48%", height: "5%", width: "90%" },
-      className:
-        "bg-linear-to-b from-amber-200 to-amber-400 [clip-path:polygon(0_0,100%_0,96%_100%,70%_70%,52%_100%,30%_70%,6%_100%)]",
-    },
-  },
-  meat: {
+  "cheese-meat": {
     startY: 100,
-    placeholder: {
-      style: { top: "52%", height: "13%", width: "84%" },
-      className:
-        "rounded-3xl bg-linear-to-b from-[#6b3419] via-[#3d1a0b] to-[#251006] shadow-[0_0_30px_rgba(229,52,31,0.35)]",
-    },
+    box: { x: 107, y: 289, w: 222, h: 132 },
+    placeholderClassName:
+      "rounded-3xl bg-linear-to-b from-amber-300 via-[#3d1a0b] to-[#251006]",
   },
   "bun-bottom": {
     startY: 200,
-    placeholder: {
-      style: { top: "64%", height: "15%", width: "72%" },
-      className:
-        "rounded-t-xl rounded-b-[48px] bg-linear-to-b from-amber-500 to-amber-800 shadow-[inset_0_10px_16px_rgba(0,0,0,0.3)]",
-    },
+    box: { x: 100, y: 413, w: 237, h: 86 },
+    placeholderClassName:
+      "rounded-t-xl rounded-b-[48px] bg-linear-to-b from-amber-500 to-amber-800",
   },
 };
+
+const pct = (value: number, total: number) => `${(value / total) * 100}%`;
+
+function boxToStyle({ x, y, w, h }: CanvasBox): CSSProperties {
+  return {
+    left: pct(x, BURGER_CANVAS.width),
+    top: pct(y, BURGER_CANVAS.height),
+    width: pct(w, BURGER_CANVAS.width),
+    height: pct(h, BURGER_CANVAS.height),
+  };
+}
 
 /**
  * Trecho do scroll em que a montagem acontece. Termina antes de 1 para o burger
@@ -87,14 +92,14 @@ const TITLE_RANGE: [number, number] = [0.5, 0.75];
 /* ─────────────────────────────── Componente ─────────────────────────────── */
 
 interface BurgerAssemblyProps {
-  /** Camadas na ordem de cima para baixo (01 → 06). */
+  /** Camadas na ordem de cima para baixo (01 → 05). */
   layers: BurgerLayer[];
 }
 
 /**
  * BLOCO 2 — Showstopper: montagem do burger no scroll.
  *
- * wrapper (300vh) → sticky (h-screen) → canvas relativo → 6 camadas absolutas.
+ * wrapper (300vh) → sticky (h-screen) → canvas relativo → camadas absolutas.
  * Cada camada sai de `startY` e chega a 0; como os PNGs compartilham o mesmo
  * canvas, em 0 elas se sobrepõem formando o burger completo.
  */
@@ -147,7 +152,9 @@ export function BurgerAssembly({ layers }: BurgerAssemblyProps) {
         <div
           role="img"
           aria-label="Hambúrguer artesanal sendo montado camada por camada"
-          className="relative z-10 aspect-square w-[min(82vw,58vh,560px)]"
+          style={{ aspectRatio: `${BURGER_CANVAS.width} / ${BURGER_CANVAS.height}` }}
+          // O burger ocupa ~55% da largura da arte, por isso o canvas é generoso.
+          className="relative z-10 w-[min(94vw,calc(78vh*0.7474),600px)]"
         >
           {layers.map((layer, index) => (
             <AssemblyLayer
@@ -185,7 +192,7 @@ interface AssemblyLayerProps {
 
 /** Componente próprio por camada: hooks não podem ser chamados dentro de `.map`. */
 function AssemblyLayer({ layer, progress, zIndex, isStatic }: AssemblyLayerProps) {
-  const { startY, placeholder } = LAYER_CONFIG[layer.id];
+  const { startY, box, placeholderClassName } = LAYER_CONFIG[layer.id];
   const src = ASSETS.layers[layer.id];
   const y = useTransform(progress, ASSEMBLY_RANGE, [isStatic ? 0 : startY, 0]);
 
@@ -196,15 +203,17 @@ function AssemblyLayer({ layer, progress, zIndex, isStatic }: AssemblyLayerProps
           src={src}
           alt=""
           fill
-          sizes="(min-width: 768px) 560px, 82vw"
-          className="object-contain drop-shadow-[0_24px_30px_rgba(0,0,0,0.6)]"
+          // O otimizador do Next não processa SVG; PNG/WebP continuam otimizados.
+          unoptimized={src.endsWith(".svg")}
+          sizes="(min-width: 768px) 600px, 94vw"
+          className="object-contain drop-shadow-[0_18px_22px_rgba(0,0,0,0.45)]"
         />
       ) : (
         <div
           aria-hidden="true"
           title={layer.name}
-          style={placeholder.style}
-          className={cn("absolute left-1/2 -translate-x-1/2", placeholder.className)}
+          style={boxToStyle(box)}
+          className={cn("absolute", placeholderClassName)}
         />
       )}
     </motion.div>
