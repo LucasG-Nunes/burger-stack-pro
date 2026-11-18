@@ -14,7 +14,7 @@ npm run build
 ## Trocar os placeholders pelos PNGs finais
 
 1. Coloque os arquivos em `public/images/` (PNG com fundo transparente) e o vídeo em `public/videos/`.
-2. Preencha os caminhos em **`src/shared/constants/assets.constants.ts`** (hero, vídeo de faíscas, chef, 5 camadas do burger).
+2. Preencha os caminhos em **`src/shared/constants/assets.constants.ts`** (vídeo de brasa e burger girando do hero, vídeo da chapa do chef, retrato do chef, 5 camadas do burger). Vídeos: MP4 H.264 mudo, de preferência < 4 MB cada.
 3. Imagens dos produtos: campo `image` em `src/infrastructure/mocks/menu.mock.ts`.
 4. Camadas do burger: `public/images/burger/01-bun-top.png` … `06-bun-bottom.png`, **todas exportadas no mesmo canvas** (mesmas dimensões, fundo transparente, cada ingrediente já na sua posição final). Assim, quando a animação termina em `y = 0`, elas se encaixam perfeitamente. O deslocamento inicial de cada uma fica em `LAYER_CONFIG` (`BurgerAssembly.tsx`).
 
@@ -35,9 +35,9 @@ src/
 │  ├─ services/              MockMenuService, MockReviewService
 │  └─ instance.ts            composition root (troque o mock pela API aqui)
 ├─ presentation/
-│  ├─ components/atoms       PulsingCTA, MagneticButton, EmberBackdrop, ImagePlaceholder…
+│  ├─ components/atoms       PulsingCTA, LoopVideo, FloatingLayer, MagneticButton…
 │  ├─ components/molecules   ProductCard, ReviewCard, SectionHeading
-│  ├─ components/organisms   os 5 blocos + Header
+│  ├─ components/organisms   os blocos + Header
 │  ├─ components/templates   LandingTemplate
 │  ├─ hooks/                 useMouseParallax, useMagnetic, useClosingCountdown
 │  └─ pages/HomePage         Server Component que chama os use cases
@@ -50,10 +50,11 @@ Pastas com apenas `index.ts` (`core/types`, `useCases/auth`, `infrastructure/htt
 
 | # | Organism | Técnica |
 |---|----------|---------|
-| 1 | `HeroSection` | Vídeo de brasa com máscara `hero-vignette` (gradientes que escondem as bordas), CTA com glow CSS `ember-pulse`. Server Component; só o `BackgroundVideo` hidrata |
+| 1 | `HeroSection` | Vídeo de brasa com máscara `hero-vignette`; burger girando no centro (máscara oval + flutuação infinita em Y); CTA com glow CSS `ember-pulse` |
 | 2 | `BurgerAssembly` | `useScroll` + `useTransform` numa seção de 320vh com palco `sticky` |
 | 3 | `TopSellers` | `whileInView` + `staggerChildren: 0.2` (fade-up em cascata) |
-| 4 | `SocialProof` | Avaliações em órbita com flutuação infinita no eixo Y |
+| 4 | `SocialProof` | Vídeo do chef na chapa no centro, avaliações em órbita com flutuação infinita no eixo Y |
+| 4b | `LocationSection` | Mapa OpenStreetMap (sem chave de API) em tema escuro, pin de brasa e botão "Como chegar". Trocável por Mapbox em `LocationMap` |
 | 5 | `FinalCTA` | Botão magnético com física de mola + contagem até 23h |
 
 Todas as animações respeitam `prefers-reduced-motion`.

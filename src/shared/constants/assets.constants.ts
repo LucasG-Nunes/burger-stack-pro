@@ -2,32 +2,35 @@ import type { BurgerLayerId } from "@/core/entities/BurgerLayer";
 
 /**
  * ╔══════════════════════════════════════════════════════════════════╗
- * ║  PONTO ÚNICO DE TROCA DOS PLACEHOLDERS                           ║
- * ║  1. Coloque os PNGs (fundo transparente) em /public/images       ║
- * ║  2. Troque `null` pelo caminho, ex: "/images/hero-burger.png"    ║
- * ║  Enquanto for `null`, o componente renderiza um placeholder.     ║
+ * ║  PONTO ÚNICO DE TROCA DOS ASSETS                                 ║
+ * ║  Imagens em /public/images, vídeos em /public/videos.            ║
+ * ║  Enquanto um caminho for `null`, o componente usa um fallback.   ║
  * ║  (Imagens dos produtos ficam no campo `image` do menu.mock.ts.)  ║
  * ╚══════════════════════════════════════════════════════════════════╝
  */
 interface AssetMap {
-  heroBurger: string | null;
-  /** Vídeo de faíscas em loop, ex: "/videos/sparks.mp4" (mudo, ~5s, < 3MB). */
+  /** Burger girando no centro do Hero (loop curto, mudo, fundo escuro). */
+  heroBurgerVideo: string | null;
+  /** Vídeo de brasa em tela cheia atrás do Hero (mudo, loop). */
   heroVideo: string | null;
   heroVideoPoster: string | null;
   chefPortrait: string | null;
+  /** Ação na chapa da seção "Feito por quem vive o fogo" (mudo, loop). */
+  chefGrillVideo: string | null;
   /**
-   * Camadas do burger. IMPORTANTE: os 6 PNGs devem ser exportados no MESMO
-   * canvas (mesmas dimensões, fundo transparente), cada ingrediente já na sua
-   * posição final — assim, com y = 0, eles se sobrepõem perfeitamente.
+   * Camadas do burger. IMPORTANTE: todas exportadas no MESMO canvas
+   * (mesmas dimensões, fundo transparente), cada ingrediente já na sua
+   * posição final — assim, com y = 0, elas se sobrepõem perfeitamente.
    */
   layers: Record<BurgerLayerId, string | null>;
 }
 
 export const ASSETS: AssetMap = {
-  heroBurger: null,
+  heroBurgerVideo: "/videos/hero-burger.mp4",
   heroVideo: "/videos/brasa-hero.mp4",
   heroVideoPoster: null,
   chefPortrait: null,
+  chefGrillVideo: "/videos/chef-grill.mp4",
   // Canvas atual: 432×578 (ver BURGER_CANVAS em BurgerAssembly.tsx).
   layers: {
     "bun-top": "/images/01-bun-top.svg",

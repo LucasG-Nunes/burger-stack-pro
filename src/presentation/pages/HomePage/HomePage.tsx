@@ -7,6 +7,7 @@ import {
   BurgerAssembly,
   FinalCTA,
   HeroSection,
+  LocationSection,
   SocialProof,
   TopSellers,
 } from "../../components/organisms";
@@ -29,6 +30,7 @@ export async function HomePage() {
       <BurgerAssembly layers={layers} />
       <TopSellers products={topSellers} />
       <SocialProof reviews={reviews} />
+      <LocationSection />
     </LandingTemplate>
   );
 }

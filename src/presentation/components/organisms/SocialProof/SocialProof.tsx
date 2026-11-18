@@ -5,10 +5,11 @@ import type { CSSProperties } from "react";
 
 import type { Review } from "@/core/entities/Review";
 import { ASSETS } from "@/shared/constants/assets.constants";
-import { CHEF } from "@/shared/constants/brand.constants";
+import { BRAND, CHEF } from "@/shared/constants/brand.constants";
 import { EASE_EMBER } from "@/shared/constants/motion.constants";
 
 import { ImagePlaceholder } from "../../atoms/ImagePlaceholder/ImagePlaceholder";
+import { LoopVideo } from "../../atoms/LoopVideo/LoopVideo";
 import { ReviewCard } from "../../molecules/ReviewCard/ReviewCard";
 import { SectionHeading } from "../../molecules/SectionHeading/SectionHeading";
 
@@ -37,10 +38,10 @@ export function SocialProof({ reviews }: SocialProofProps) {
     <section id="avaliacoes" className="relative overflow-hidden py-24 md:py-36">
       <div className="section-container">
         <SectionHeading
-          eyebrow="Quem manda na chapa"
+          eyebrow={`${BRAND.ratingCount} avaliações · ★ ${BRAND.rating}`}
           title={
             <>
-              Feito por quem <span className="text-fire">vive o fogo.</span>
+              Quem prova, <span className="text-fire">volta.</span>
             </>
           }
         />
@@ -56,14 +57,29 @@ export function SocialProof({ reviews }: SocialProofProps) {
           >
             <div className="relative">
               <div aria-hidden="true" className="absolute -inset-6 rounded-full bg-brasa-500/25 blur-2xl" />
-              <ImagePlaceholder
-                src={ASSETS.chefPortrait}
-                alt={CHEF.name}
-                label="PNG · Chef"
-                tone="brasa"
-                sizes="288px"
-                className="relative size-56 rounded-full ring-2 ring-ember-500/50 ring-offset-8 ring-offset-coal-950 md:size-72"
-              />
+              {ASSETS.chefGrillVideo ? (
+                <div
+                  role="img"
+                  aria-label={`${CHEF.name} jogando o blend na chapa em chamas`}
+                  className="relative size-56 overflow-hidden rounded-full ring-2 ring-ember-500/50 ring-offset-8 ring-offset-coal-950 md:size-72"
+                >
+                  <LoopVideo
+                    src={ASSETS.chefGrillVideo}
+                    strategy="in-view"
+                    // Vídeo 16:9: enquadra a mão jogando a carne, à esquerda do centro.
+                    className="h-full w-full object-[42%_50%]"
+                  />
+                </div>
+              ) : (
+                <ImagePlaceholder
+                  src={ASSETS.chefPortrait}
+                  alt={CHEF.name}
+                  label="PNG · Chef"
+                  tone="brasa"
+                  sizes="288px"
+                  className="relative size-56 rounded-full ring-2 ring-ember-500/50 ring-offset-8 ring-offset-coal-950 md:size-72"
+                />
+              )}
             </div>
             <h3 className="mt-8 font-display text-4xl tracking-wide">{CHEF.name}</h3>
             <p className="text-sm text-ember-400">{CHEF.role}</p>

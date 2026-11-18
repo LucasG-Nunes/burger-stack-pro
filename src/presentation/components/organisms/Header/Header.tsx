@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "#montagem", label: "O burger" },
   { href: "#cardapio", label: "Cardápio" },
   { href: "#avaliacoes", label: "Avaliações" },
+  { href: "#localizacao", label: "Onde estamos" },
 ];
 
 export function Header() {

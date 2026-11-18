@@ -1,5 +1,6 @@
 node_modules
 .next
+.next-*
 out
 build
 *.tsbuildinfo
@@ -7,3 +8,7 @@ next-env.d.ts
 .env*.local
 .DS_Store
 npm-debug.log*
+
+# Projeto usa npm (package-lock.json)
+pnpm-lock.yaml
+pnpm-workspace.yaml
