@@ -32,6 +32,44 @@
 
   --shadow-ember: 0 0 48px -10px rgb(255 106 0 / 0.65);
   --shadow-card: 0 24px 60px -24px rgb(0 0 0 / 0.9);
+
+  --animate-fade-up: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Halo da brasa: respira (opacidade + escala), só propriedades de compositor. */
+  @keyframes ember-breathe {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(0.97);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+  }
+
+  /* Anel que se expande e some, como uma faísca saindo da brasa. */
+  @keyframes ember-ring {
+    0% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.35, 1.6);
+    }
+  }
 }
 
 @layer base {
@@ -96,6 +134,82 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+/*
+ * Glow pulsante "brasa a pulsar".
+ * O box-shadow fica PARADO num pseudo-elemento e só a opacidade/escala animam:
+ * visualmente a sombra expande e retrai, mas sem repintar a cada frame (GPU).
+ */
+@utility ember-pulse {
+  position: relative;
+  isolation: isolate;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  &::before {
+    box-shadow:
+      0 0 18px 2px rgb(255 69 0 / 0.75),
+      0 0 46px 10px rgb(255 69 0 / 0.45),
+      0 0 90px 22px rgb(255 106 0 / 0.25);
+    animation: ember-breathe 2.2s ease-in-out infinite;
+  }
+
+  &::after {
+    border: 2px solid rgb(255 106 0 / 0.7);
+    animation: ember-ring 2.2s ease-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before,
+    &::after {
+      animation: none;
+    }
+    &::after {
+      opacity: 0;
+    }
+  }
+}
+
+/*
+ * Máscara do vídeo do Hero: funde topo, laterais e base com o fundo do site,
+ * escondendo as silhuetas desfocadas nas bordas. O centro fica livre (chamas).
+ */
+@utility hero-vignette {
+  background-image:
+    linear-gradient(
+      to bottom,
+      var(--color-coal-950) 0%,
+      rgb(10 10 10 / 0.75) 12%,
+      transparent 34%,
+      transparent 68%,
+      var(--color-coal-950) 100%
+    ),
+    linear-gradient(
+      to right,
+      var(--color-coal-950) 0%,
+      rgb(10 10 10 / 0.7) 10%,
+      transparent 30%,
+      transparent 70%,
+      rgb(10 10 10 / 0.7) 90%,
+      var(--color-coal-950) 100%
+    ),
+    radial-gradient(
+      ellipse 65% 55% at 50% 60%,
+      transparent 0%,
+      rgb(10 10 10 / 0.2) 40%,
+      rgb(10 10 10 / 0.8) 75%,
+      var(--color-coal-950) 100%
+    );
 }
 
 /* Texto vazado (contorno) para palavras gigantes de fundo. */

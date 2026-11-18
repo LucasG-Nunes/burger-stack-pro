@@ -50,7 +50,7 @@ Pastas com apenas `index.ts` (`core/types`, `useCases/auth`, `infrastructure/htt
 
 | # | Organism | Técnica |
 |---|----------|---------|
-| 1 | `HeroSection` | Mouse-tracking parallax (`useMotionValue` + `useSpring` + `useTransform`), CTA com `boxShadow` pulsante |
+| 1 | `HeroSection` | Vídeo de brasa com máscara `hero-vignette` (gradientes que escondem as bordas), CTA com glow CSS `ember-pulse`. Server Component; só o `BackgroundVideo` hidrata |
 | 2 | `BurgerAssembly` | `useScroll` + `useTransform` numa seção de 320vh com palco `sticky` |
 | 3 | `TopSellers` | `whileInView` + `staggerChildren: 0.2` (fade-up em cascata) |
 | 4 | `SocialProof` | Avaliações em órbita com flutuação infinita no eixo Y |

@@ -25,7 +25,7 @@ interface AssetMap {
 
 export const ASSETS: AssetMap = {
   heroBurger: null,
-  heroVideo: null,
+  heroVideo: "/videos/brasa-hero.mp4",
   heroVideoPoster: null,
   chefPortrait: null,
   // Canvas atual: 432×578 (ver BURGER_CANVAS em BurgerAssembly.tsx).

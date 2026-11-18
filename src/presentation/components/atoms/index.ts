@@ -1,3 +1,4 @@
+export { BackgroundVideo } from "./BackgroundVideo/BackgroundVideo";
 export { EmberBackdrop } from "./EmberBackdrop/EmberBackdrop";
 export { ImagePlaceholder } from "./ImagePlaceholder/ImagePlaceholder";
 export { MagneticButton } from "./MagneticButton/MagneticButton";
