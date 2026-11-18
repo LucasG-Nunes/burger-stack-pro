@@ -1,7 +1,7 @@
 node_modules
 .next
 .next-*
-out
+/out
 build
 *.tsbuildinfo
 next-env.d.ts
