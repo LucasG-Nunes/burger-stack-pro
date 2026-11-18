@@ -15,6 +15,11 @@ interface AssetMap {
   heroVideo: string | null;
   heroVideoPoster: string | null;
   chefPortrait: string | null;
+  /**
+   * Camadas do burger. IMPORTANTE: os 6 PNGs devem ser exportados no MESMO
+   * canvas (mesmas dimensões, fundo transparente), cada ingrediente já na sua
+   * posição final — assim, com y = 0, eles se sobrepõem perfeitamente.
+   */
   layers: Record<BurgerLayerId, string | null>;
 }
 
@@ -24,10 +29,11 @@ export const ASSETS: AssetMap = {
   heroVideoPoster: null,
   chefPortrait: null,
   layers: {
-    "top-bun": null,
-    lettuce: null,
-    patty: null,
-    cheese: null,
-    "bottom-bun": null,
+    "bun-top": null, //    "/images/burger/01-bun-top.png"
+    salad: null, //        "/images/burger/02-salad.png"
+    tomato: null, //       "/images/burger/03-tomato.png"
+    cheese: null, //       "/images/burger/04-cheese.png"
+    meat: null, //         "/images/burger/05-meat.png"
+    "bun-bottom": null, // "/images/burger/06-bun-bottom.png"
   },
 };

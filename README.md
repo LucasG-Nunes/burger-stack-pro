@@ -16,7 +16,7 @@ npm run build
 1. Coloque os arquivos em `public/images/` (PNG com fundo transparente) e o vídeo em `public/videos/`.
 2. Preencha os caminhos em **`src/shared/constants/assets.constants.ts`** (hero, vídeo de faíscas, chef, 5 camadas do burger).
 3. Imagens dos produtos: campo `image` em `src/infrastructure/mocks/menu.mock.ts`.
-4. Ao usar os PNGs das camadas, ajuste `height` em `LAYER_VISUALS` (`BurgerAssembly.tsx`) para que encaixem.
+4. Camadas do burger: `public/images/burger/01-bun-top.png` … `06-bun-bottom.png`, **todas exportadas no mesmo canvas** (mesmas dimensões, fundo transparente, cada ingrediente já na sua posição final). Assim, quando a animação termina em `y = 0`, elas se encaixam perfeitamente. O deslocamento inicial de cada uma fica em `LAYER_CONFIG` (`BurgerAssembly.tsx`).
 
 Dados do negócio (nome, WhatsApp, horário, chef): `src/shared/constants/brand.constants.ts`.
 Cores do tema: bloco `@theme` em `src/app/globals.css` (`coal`, `ember`, `brasa`, `cream`, `ash`).

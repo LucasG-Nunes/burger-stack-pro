@@ -37,9 +37,10 @@ export const TOP_SELLERS_MOCK: Product[] = [
 
 /** Ordem de cima para baixo, como o burger é montado na tela. */
 export const SIGNATURE_BURGER_LAYERS_MOCK: BurgerLayer[] = [
-  { id: "top-bun", name: "Pão brioche", detail: "Selado na manteiga" },
-  { id: "lettuce", name: "Alface americana", detail: "Crocante e gelada" },
-  { id: "patty", name: "Blend 180g", detail: "Smash na chapa a 250°C" },
+  { id: "bun-top", name: "Pão brioche", detail: "Selado na manteiga" },
+  { id: "salad", name: "Alface americana", detail: "Crocante e gelada" },
+  { id: "tomato", name: "Tomate", detail: "Fatiado na hora" },
   { id: "cheese", name: "Cheddar inglês", detail: "Derretido no abafador" },
-  { id: "bottom-bun", name: "Pão base", detail: "Tostado para não encharcar" },
+  { id: "meat", name: "Blend 180g", detail: "Smash na chapa a 250°C" },
+  { id: "bun-bottom", name: "Pão base", detail: "Tostado para não encharcar" },
 ];
