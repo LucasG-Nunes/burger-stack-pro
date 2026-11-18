@@ -28,14 +28,20 @@ export function ProductCard({ product, className }: ProductCardProps) {
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-radial from-coal-700 to-coal-900">
         <div className="absolute inset-0 bg-radial from-ember-500/0 to-transparent transition duration-500 group-hover:from-ember-500/25" />
-        <ImagePlaceholder
-          src={image}
-          alt={name}
-          label={`PNG · ${name}`}
-          tone="neutral"
-          sizes="(min-width: 768px) 33vw, 100vw"
-          className="absolute inset-6 rounded-2xl transition duration-500 group-hover:scale-105 group-hover:-rotate-2"
-        />
+        {/* Posicionamento no wrapper: o ImagePlaceholder sempre aplica `relative`. */}
+        <div className="absolute inset-0 transition duration-700 group-hover:scale-105">
+          <ImagePlaceholder
+            src={image}
+            alt={name}
+            label={`PNG · ${name}`}
+            tone="neutral"
+            fit="cover"
+            // Fotos do Instagram: corta o rodapé (ícone de som) e mantém o burger no centro.
+            imageClassName="object-[50%_45%]"
+            sizes="(min-width: 768px) 33vw, 100vw"
+            className="size-full"
+          />
+        </div>
         {badge && (
           <span className="absolute top-4 left-4 rounded-full bg-brasa-500 px-3 py-1 text-xs font-bold tracking-wide text-cream-100 uppercase">
             {badge}

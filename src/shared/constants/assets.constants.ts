@@ -11,6 +11,8 @@ import type { BurgerLayerId } from "@/core/entities/BurgerLayer";
 interface AssetMap {
   /** Burger girando no centro do Hero (loop curto, mudo, fundo escuro). */
   heroBurgerVideo: string | null;
+  /** 1º quadro do burger: aparece na hora, antes do vídeo carregar. */
+  heroBurgerPoster: string | null;
   /** Vídeo de brasa em tela cheia atrás do Hero (mudo, loop). */
   heroVideo: string | null;
   heroVideoPoster: string | null;
@@ -27,8 +29,9 @@ interface AssetMap {
 
 export const ASSETS: AssetMap = {
   heroBurgerVideo: "/videos/hero-burger.mp4",
+  heroBurgerPoster: "/images/hero-burger-poster.jpg",
   heroVideo: "/videos/brasa-hero.mp4",
-  heroVideoPoster: null,
+  heroVideoPoster: "/images/brasa-hero-poster.jpg",
   chefPortrait: null,
   chefGrillVideo: "/videos/chef-grill.mp4",
   // Canvas atual: 432×578 (ver BURGER_CANVAS em BurgerAssembly.tsx).

@@ -5,7 +5,7 @@ import { WhatsAppIcon } from "../../atoms/WhatsAppIcon/WhatsAppIcon";
 import { LocationMap } from "../../molecules/LocationMap/LocationMap";
 import { SectionHeading } from "../../molecules/SectionHeading/SectionHeading";
 
-const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${LOCATION.lat},${LOCATION.lng}`;
+const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(LOCATION.mapsQuery)}`;
 
 /** BLOCO 4b — Onde estamos: mapa + endereço, horário e "Como chegar". Server Component. */
 export function LocationSection() {
@@ -57,7 +57,9 @@ export function LocationSection() {
                 Horário
               </p>
               <p className="mt-2 text-lg text-cream-100">
-                Todos os dias · {SCHEDULE.openingHour}h às {SCHEDULE.closingHour}h
+                {SCHEDULE.daysLabel}
+                <br />
+                <span className="text-ash-400">{SCHEDULE.hoursLabel} · Ter e Qui fechado</span>
               </p>
             </div>
 

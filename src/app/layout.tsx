@@ -19,10 +19,10 @@ const sans = Inter({
 });
 
 export const metadata: Metadata = {
-  title: `${BRAND.name} · Hamburgueria artesanal na brasa`,
-  description: `${BRAND.tagline} Peça agora pelo WhatsApp e receba em ${BRAND.deliveryTime}.`,
+  title: `${BRAND.name} · Hamburgueria em Candeias, Jaboatão`,
+  description: `${BRAND.tagline} Peça pelo WhatsApp ou pelo cardápio digital e receba em ${BRAND.deliveryTime}.`,
   openGraph: {
-    title: `${BRAND.name} · Smash na brasa`,
+    title: BRAND.name,
     description: BRAND.tagline,
     type: "website",
     locale: "pt_BR",

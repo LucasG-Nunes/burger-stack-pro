@@ -41,29 +41,29 @@ interface LayerConfig {
 
 const LAYER_CONFIG: Record<BurgerLayerId, LayerConfig> = {
   "bun-top": {
-    startY: -400,
+    startY: -150,
     box: { x: 111, y: 70, w: 211, h: 95 },
     placeholderClassName:
       "rounded-t-[999px] rounded-b-2xl bg-linear-to-b from-amber-400 via-amber-600 to-amber-800",
   },
   salad: {
-    startY: -200,
+    startY: -80,
     box: { x: 92, y: 154, w: 245, h: 93 },
     placeholderClassName: "rounded-[50%] bg-linear-to-b from-lime-400 to-green-700",
   },
   tomato: {
-    startY: -100,
+    startY: -40,
     box: { x: 121, y: 236, w: 202, h: 64 },
     placeholderClassName: "rounded-full bg-linear-to-b from-red-500 to-red-800",
   },
   "cheese-meat": {
-    startY: 100,
+    startY: 45,
     box: { x: 107, y: 289, w: 222, h: 132 },
     placeholderClassName:
       "rounded-3xl bg-linear-to-b from-amber-300 via-[#3d1a0b] to-[#251006]",
   },
   "bun-bottom": {
-    startY: 200,
+    startY: 90,
     box: { x: 100, y: 413, w: 237, h: 86 },
     placeholderClassName:
       "rounded-t-xl rounded-b-[48px] bg-linear-to-b from-amber-500 to-amber-800",
@@ -85,9 +85,9 @@ function boxToStyle({ x, y, w, h }: CanvasBox): CSSProperties {
  * Trecho do scroll em que a montagem acontece. Termina antes de 1 para o burger
  * ficar montado (e o título visível) durante o último trecho da seção.
  */
-const ASSEMBLY_RANGE: [number, number] = [0, 0.75];
+const ASSEMBLY_RANGE: [number, number] = [0, 0.7];
 /** O título acompanha o final da montagem. */
-const TITLE_RANGE: [number, number] = [0.5, 0.75];
+const TITLE_RANGE: [number, number] = [0.45, 0.7];
 
 /* ─────────────────────────────── Componente ─────────────────────────────── */
 
@@ -99,7 +99,7 @@ interface BurgerAssemblyProps {
 /**
  * BLOCO 2 — Showstopper: montagem do burger no scroll.
  *
- * wrapper (300vh) → sticky (h-screen) → canvas relativo → camadas absolutas.
+ * wrapper (150vh) → sticky (h-screen) → canvas relativo → camadas absolutas.
  * Cada camada sai de `startY` e chega a 0; como os PNGs compartilham o mesmo
  * canvas, em 0 elas se sobrepõem formando o burger completo.
  */
@@ -128,7 +128,8 @@ export function BurgerAssembly({ layers }: BurgerAssemblyProps) {
       id="montagem"
       ref={wrapperRef}
       aria-label="Montagem do hambúrguer"
-      className={cn("relative", prefersReducedMotion ? "h-screen" : "h-[300vh]")}
+      // 150vh = só 50vh de rolagem para montar (camadas também saem mais perto).
+      className={cn("relative", prefersReducedMotion ? "h-screen" : "h-[150vh]")}
     >
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden bg-coal-950">
         {/* Título POR TRÁS do burger (z-0): linhas no topo e na base do palco */}

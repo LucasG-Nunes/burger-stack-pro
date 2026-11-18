@@ -1,46 +1,23 @@
 import type { Review } from "@/core/entities/Review";
 
+/**
+ * Avaliações reais do Google (texto enviado pela loja).
+ * Para adicionar mais, copie do Google com o nome do autor e a nota.
+ * Use só avaliações reais: depoimento inventado é propaganda enganosa.
+ */
 export const REVIEWS_MOCK: Review[] = [
   {
-    id: "r1",
-    author: "Juliana M.",
+    id: "google-1",
+    author: "Cliente no Google",
     rating: 5,
-    quote: "A crosta do smash é absurda. Melhor burger que comi este ano.",
+    quote: "Muito bom!!! Atendimento ótimo!",
     source: "Google",
   },
   {
-    id: "r2",
-    author: "Diego R.",
+    id: "google-2",
+    author: "Cliente no Google",
     rating: 5,
-    quote: "Chegou quente, pão intacto e o cheddar ainda escorrendo.",
-    source: "iFood",
-  },
-  {
-    id: "r3",
-    author: "Camila S.",
-    rating: 5,
-    quote: "O Bacon Inferno virou ritual de sexta aqui em casa.",
-    source: "Instagram",
-  },
-  {
-    id: "r4",
-    author: "Rafael T.",
-    rating: 5,
-    quote: "Dá pra sentir o sabor da chapa. Nada de burger cozido.",
+    quote: "Comida excelente.",
     source: "Google",
-  },
-  {
-    id: "r5",
-    author: "Bianca L.",
-    rating: 4,
-    quote: "Atendimento rápido pelo WhatsApp e entrega no horário.",
-    source: "WhatsApp",
-  },
-  {
-    id: "r6",
-    author: "Thiago A.",
-    rating: 5,
-    quote: "Truffle Royale vale cada centavo. Sem exagero.",
-    source: "iFood",
   },
 ];

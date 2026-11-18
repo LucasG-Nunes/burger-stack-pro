@@ -34,6 +34,19 @@
   --shadow-card: 0 24px 60px -24px rgb(0 0 0 / 0.9);
 
   --animate-fade-up: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-flip-in: flip-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  /* Placa do contador virando: entra de cima, girando no eixo X. */
+  @keyframes flip-in {
+    from {
+      transform: rotateX(-90deg);
+      opacity: 0;
+    }
+    to {
+      transform: rotateX(0deg);
+      opacity: 1;
+    }
+  }
 
   @keyframes fade-up {
     from {
@@ -186,30 +199,53 @@
  */
 @utility hero-vignette {
   background-image:
+    /* Foco básico: só as bordas escurecem, sem desenhar uma elipse no meio. */
     linear-gradient(
       to bottom,
       var(--color-coal-950) 0%,
-      rgb(10 10 10 / 0.75) 12%,
-      transparent 34%,
-      transparent 68%,
+      rgb(10 10 10 / 0.6) 10%,
+      transparent 26%,
+      transparent 78%,
       var(--color-coal-950) 100%
     ),
     linear-gradient(
       to right,
-      var(--color-coal-950) 0%,
-      rgb(10 10 10 / 0.7) 10%,
-      transparent 30%,
-      transparent 70%,
-      rgb(10 10 10 / 0.7) 90%,
-      var(--color-coal-950) 100%
-    ),
-    radial-gradient(
-      ellipse 65% 55% at 50% 60%,
-      transparent 0%,
-      rgb(10 10 10 / 0.2) 40%,
-      rgb(10 10 10 / 0.8) 75%,
-      var(--color-coal-950) 100%
+      rgb(10 10 10 / 0.85) 0%,
+      transparent 16%,
+      transparent 84%,
+      rgb(10 10 10 / 0.85) 100%
     );
+}
+
+/* Barra de rolagem neon laranja. */
+@layer base {
+  html {
+    scrollbar-color: var(--color-flame) var(--color-coal-950); /* Firefox */
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-coal-950);
+    box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.04);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid var(--color-coal-950);
+    border-radius: 9999px;
+    background: linear-gradient(to bottom, var(--color-ember-400), var(--color-flame));
+    box-shadow:
+      0 0 6px rgb(255 69 0 / 0.9),
+      0 0 14px rgb(255 106 0 / 0.6);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, var(--color-ember-300), var(--color-ember-500));
+  }
 }
 
 /* Texto vazado (contorno) para palavras gigantes de fundo. */

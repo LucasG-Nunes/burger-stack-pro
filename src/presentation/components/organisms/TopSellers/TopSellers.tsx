@@ -34,7 +34,7 @@ export function TopSellers({ products }: TopSellersProps) {
               Escolha o seu <span className="text-fire">favorito.</span>
             </>
           }
-          description="Blend próprio moído todo dia, pão brioche da casa e queijo de verdade. Nada de congelado."
+          description="Os carros-chefes da casa, todos com maionese angus defumada. O cardápio completo, com combos e smash, está no cardápio digital."
         />
 
         <motion.ul

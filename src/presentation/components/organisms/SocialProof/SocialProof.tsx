@@ -5,7 +5,7 @@ import type { CSSProperties } from "react";
 
 import type { Review } from "@/core/entities/Review";
 import { ASSETS } from "@/shared/constants/assets.constants";
-import { BRAND, CHEF } from "@/shared/constants/brand.constants";
+import { CHEF } from "@/shared/constants/brand.constants";
 import { EASE_EMBER } from "@/shared/constants/motion.constants";
 
 import { ImagePlaceholder } from "../../atoms/ImagePlaceholder/ImagePlaceholder";
@@ -17,11 +17,12 @@ import { SectionHeading } from "../../molecules/SectionHeading/SectionHeading";
  * Posições dos cards ao redor do chef (só em telas grandes — no mobile viram grade).
  * Passadas como CSS vars e consumidas por `lg:top-(--top)` etc.
  */
+// Com poucas avaliações, as primeiras ficam nas laterais do centro (mais equilibrado).
 const ORBIT_POSITIONS = [
+  { "--top": "38%", "--left": "0%" },
+  { "--top": "42%", "--right": "0%" },
   { "--top": "2%", "--left": "0%" },
   { "--top": "6%", "--right": "0%" },
-  { "--top": "40%", "--left": "-3%" },
-  { "--top": "44%", "--right": "-3%" },
   { "--bottom": "2%", "--left": "6%" },
   { "--bottom": "0%", "--right": "6%" },
 ] satisfies Record<string, string>[];
@@ -38,7 +39,7 @@ export function SocialProof({ reviews }: SocialProofProps) {
     <section id="avaliacoes" className="relative overflow-hidden py-24 md:py-36">
       <div className="section-container">
         <SectionHeading
-          eyebrow={`${BRAND.ratingCount} avaliações · ★ ${BRAND.rating}`}
+          eyebrow="Avaliações reais no Google"
           title={
             <>
               Quem prova, <span className="text-fire">volta.</span>
@@ -60,7 +61,7 @@ export function SocialProof({ reviews }: SocialProofProps) {
               {ASSETS.chefGrillVideo ? (
                 <div
                   role="img"
-                  aria-label={`${CHEF.name} jogando o blend na chapa em chamas`}
+                  aria-label={"Chapeiro de luvas pretas jogando a carne na chapa em chamas"}
                   className="relative size-56 overflow-hidden rounded-full ring-2 ring-ember-500/50 ring-offset-8 ring-offset-coal-950 md:size-72"
                 >
                   <LoopVideo

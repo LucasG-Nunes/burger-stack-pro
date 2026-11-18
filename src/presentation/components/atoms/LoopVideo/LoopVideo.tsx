@@ -113,7 +113,8 @@ export function LoopVideo({ src, poster, strategy = "in-view", className }: Loop
       onLoadedData={() => setIsReady(true)}
       className={cn(
         "pointer-events-none object-cover transition-opacity duration-700",
-        isReady ? "opacity-100" : "opacity-0",
+        // Com poster, aparece já (o poster cobre a espera); sem poster, entra com fade.
+        isReady || poster ? "opacity-100" : "opacity-0",
         className,
       )}
     />

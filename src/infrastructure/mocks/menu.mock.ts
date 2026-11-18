@@ -2,44 +2,44 @@ import type { BurgerLayer } from "@/core/entities/BurgerLayer";
 import type { Product } from "@/core/entities/Product";
 
 /**
- * Dados de exemplo. Para ligar os PNGs finais, basta preencher `image`
- * com o caminho em /public (ex: "/images/products/brasa-smash.png").
+ * Vitrine: 3 burgers reais do cardápio digital (redsoxburger.menudino.com).
+ * Preços "PROMO" de lá: confira antes de publicar, porque mudam com as promoções.
  */
 export const TOP_SELLERS_MOCK: Product[] = [
   {
-    id: "brasa-smash",
-    name: "Brasa Smash",
+    id: "red-picanha",
+    name: "Red Picanha",
     description:
-      "Dois smash de 90g com crosta caramelizada, cheddar inglês derretido, cebola na manteiga e molho da casa.",
-    priceInCents: 3890,
-    badge: "Mais pedido",
-    image: null,
+      "2 discos de 80g (160g de carne), cebola caramelizada, american cheese, maionese angus defumada e farofa de bacon.",
+    priceInCents: 2290,
+    badge: "Carro-chefe",
+    image: "/images/redsox-picanha.jpeg",
   },
   {
-    id: "bacon-inferno",
-    name: "Bacon Inferno",
+    id: "red-sertao",
+    name: "Red Sertão",
     description:
-      "Blend de 180g na chapa, bacon crocante, jalapeño tostado, pepper jack e maionese defumada.",
-    priceInCents: 4490,
-    badge: "Picante",
-    image: null,
+      "Disco de 160g, cebola caramelizada, queijo coalho, maionese angus defumada, farofa de bacon, mel e orégano.",
+    priceInCents: 2290,
+    badge: "Regional",
+    image: "/images/redsox-sertao.jpeg",
   },
   {
-    id: "truffle-royale",
-    name: "Truffle Royale",
+    id: "big-bacon",
+    name: "Big Bacon",
     description:
-      "Blend de costela 200g, queijo brie, cogumelos salteados, rúcula e aioli de trufas no brioche.",
-    priceInCents: 4990,
-    badge: "Edição do Chef",
-    image: null,
+      "Disco de 170g, bacon crocante, american cheese e maionese angus defumada. O queridinho defumado!",
+    priceInCents: 2390,
+    badge: "Defumado",
+    image: "/images/redsox-cheddar.jpeg",
   },
 ];
 
 /** Ordem de cima para baixo, como o burger é montado na tela. */
 export const SIGNATURE_BURGER_LAYERS_MOCK: BurgerLayer[] = [
-  { id: "bun-top", name: "Pão brioche", detail: "Selado na manteiga" },
-  { id: "salad", name: "Alface americana", detail: "Crocante e gelada" },
+  { id: "bun-top", name: "Pão tradicional", detail: "Selado na chapa" },
+  { id: "salad", name: "Alface", detail: "Crocante" },
   { id: "tomato", name: "Tomate", detail: "Fatiado na hora" },
-  { id: "cheese-meat", name: "Blend 180g com cheddar", detail: "Smash na chapa a 250°C" },
-  { id: "bun-bottom", name: "Pão base", detail: "Tostado para não encharcar" },
+  { id: "cheese-meat", name: "Carne com american cheese", detail: "Na chapa" },
+  { id: "bun-bottom", name: "Pão base", detail: "Com maionese angus defumada" },
 ];

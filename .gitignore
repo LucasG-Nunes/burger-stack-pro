@@ -12,3 +12,6 @@ npm-debug.log*
 # Projeto usa npm (package-lock.json)
 pnpm-lock.yaml
 pnpm-workspace.yaml
+
+# Vídeos originais (pesados), antes da compressão
+/media-originals

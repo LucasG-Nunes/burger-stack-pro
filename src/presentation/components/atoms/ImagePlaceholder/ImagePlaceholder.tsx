@@ -14,6 +14,10 @@ interface ImagePlaceholderProps {
   sizes?: string;
   priority?: boolean;
   tone?: Tone;
+  /** `contain` para PNG recortado (com sombra); `cover` para foto que preenche a caixa. */
+  fit?: "contain" | "cover";
+  /** Classes extras do <img>, ex: object-position. */
+  imageClassName?: string;
 }
 
 const TONES: Record<Tone, string> = {
@@ -30,6 +34,8 @@ export function ImagePlaceholder({
   sizes = "(min-width: 1024px) 50vw, 100vw",
   priority = false,
   tone = "ember",
+  fit = "contain",
+  imageClassName,
 }: ImagePlaceholderProps) {
   if (src) {
     return (
@@ -40,7 +46,12 @@ export function ImagePlaceholder({
           fill
           sizes={sizes}
           priority={priority}
-          className="object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.7)]"
+          className={cn(
+            fit === "cover"
+              ? "object-cover"
+              : "object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.7)]",
+            imageClassName,
+          )}
         />
       </div>
     );

@@ -2,17 +2,19 @@
 
 import { useEffect, useState } from "react";
 
-interface ClosingCountdown {
-  /** `false` até o primeiro tick no cliente (evita mismatch de hidratação). */
-  ready: boolean;
-  isOpen: boolean;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
+import { getStoreStatus, type StoreStatus } from "@/shared/helpers/schedule";
 
-/** Contagem regressiva até o horário de fechamento da chapa (horário local do visitante). */
-export function useClosingCountdown(openingHour: number, closingHour: number): ClosingCountdown {
+export type ClosingCountdown =
+  | { ready: false }
+  | (StoreStatus & { ready: true; hours: number; minutes: number; seconds: number });
+
+/**
+ * Status da loja atualizado a cada segundo: aberta com contagem até fechar, ou
+ * fechada com contagem até abrir. Regras de dia/horário em `SCHEDULE`
+ * (brand.constants) e cálculo em `getStoreStatus` (helpers/schedule).
+ */
+export function useClosingCountdown(): ClosingCountdown {
+  // `null` até montar no cliente: o servidor não sabe a hora do visitante (evita mismatch).
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -21,19 +23,13 @@ export function useClosingCountdown(openingHour: number, closingHour: number): C
     return () => window.clearInterval(id);
   }, []);
 
-  if (!now) return { ready: false, isOpen: false, hours: 0, minutes: 0, seconds: 0 };
+  if (!now) return { ready: false };
 
-  const closing = new Date(now);
-  closing.setHours(closingHour, 0, 0, 0);
-  const remainingMs = closing.getTime() - now.getTime();
-  const isOpen = now.getHours() >= openingHour && remainingMs > 0;
-
-  if (!isOpen) return { ready: true, isOpen: false, hours: 0, minutes: 0, seconds: 0 };
-
-  const totalSeconds = Math.floor(remainingMs / 1000);
+  const status = getStoreStatus(now);
+  const totalSeconds = Math.max(0, Math.floor(status.remainingMs / 1000));
   return {
+    ...status,
     ready: true,
-    isOpen: true,
     hours: Math.floor(totalSeconds / 3600),
     minutes: Math.floor((totalSeconds % 3600) / 60),
     seconds: totalSeconds % 60,
